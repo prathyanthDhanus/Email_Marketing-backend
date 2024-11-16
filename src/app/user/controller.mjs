@@ -15,6 +15,7 @@ export const userRegister = async (req, res) => {
     );
   }
 
+ //create new user
   const newUser = await userRegisterDb(userName, email, password);
   return res.status(201).json({
     status: "success",
@@ -38,10 +39,11 @@ export const userLogin = async (req, res) => {
     );
   }
 
+  //log in the user
   const logUser = await userLoginDb(email,password);
   return res.status(200).json({
     status: "success",
-    message: "User Logged successfully",
+    message: "User Logged in successfully",
     data: logUser,
   });
 };

@@ -40,8 +40,8 @@ export const userLoginDb = async (email, password) => {
   //if user not found, throw an error
   if (!findUser) {
     throw new AppError(
-      "User not found",
-      "Field validation error:User not found",
+      "Wrong email.User not found",
+      "Field validation error:Wrong email.User not found",
       404
     );
   }
