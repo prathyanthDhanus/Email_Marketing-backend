@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const leadSourceModel = new mongoose.model({
+const leadSourceSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -9,9 +9,10 @@ const leadSourceModel = new mongoose.model({
 
   leadSourceName: {
     type: String,
-    require: true,
+    required: true,
+    
   },
-});
+}); 
 
-const LeadSource = mongoose.model("LeadSource", leadSourceModel);
+const LeadSource = mongoose.model("LeadSource", leadSourceSchema);
 export default LeadSource;

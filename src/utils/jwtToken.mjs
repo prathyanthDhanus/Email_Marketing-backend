@@ -4,7 +4,9 @@ import jwt from "jsonwebtoken";
   //=============== token verification for user ===============
 
  export const tokenVerifyUser =  (req, res, next) => {
-    const authHeader = req.headers.authorization;
+
+    const authHeader = req.headers?.authorization;
+
     if (!authHeader) {
       return res.status(401).json({ error: "Unauthrized 🚫" });
     }
