@@ -1,6 +1,7 @@
 import AppError from "../../../utils/appError.mjs";
 import { sendEmail } from "../../../utils/nodeMailer.mjs";
 import Email from "../model/emailSchema.mjs";
+import agenda from "../../agenda/ajendaConfig.mjs";
 
 //===================== create email ===================
 
@@ -66,35 +67,55 @@ export const updateEmailDb = async (template, templateId) => {
 //================= delete  email ===============
 
 export const deleteEmailDb = async (templateId) => {
-    const findEmail = await Email.findByIdAndDelete(
-        templateId
-      );
-      if (!findEmail) {
-        throw new AppError(
-          "No emails found",
-          "Field validation error:No emails found",
-          404
-        );
-      }
-      return findEmail;
+  const findEmail = await Email.findByIdAndDelete(templateId);
+  if (!findEmail) {
+    throw new AppError(
+      "No emails found",
+      "Field validation error:No emails found",
+      404
+    );
+  }
+  return findEmail;
 };
 
 //================= send email ==================
 
-export const sendEmailDb = async(time,email,subject,emailBody,emailType)=>{
+export const sendEmailDb = async (
+  time,
+  email,
+  subject,
+  emailBody,
+  emailType
+) => {
+  if (emailType === "coldEmail") {
+    // call the email sending function
+    const isEmailSent = await sendEmail(email, subject, emailBody);
 
-  if(emailType==="coldEmail"){
-      // call the email sending function
-      const isEmailSent = await sendEmail(email, subject, emailBody);
-
-      if(!isEmailSent){
-        throw new AppError(
-            "Failed to send cold email",
-            "Field validation error:No emails found",
-            404
-        )
-      }
-      return { email, subject, emailBody, status: "sent", time };
+    if (!isEmailSent) {
+      throw new AppError(
+        "Failed to send cold email",
+        "Field validation error:No emails found",
+        404
+      );
+    }
+    return { email, subject, emailBody, status: "sent", time };
   }
-  
-}
+  // Schedule email sending using Agenda
+  const scheduleTime = new Date(time);
+
+  if (scheduleTime <= new Date()) {
+    throw new AppError(
+      "Invalid time for scheduling",
+      "Field validation error: Scheduled time must be in the future",
+      400
+    );
+  }
+  // schedule the job
+  await agenda.schedule(scheduleTime, "send scheduled email", {
+    email,
+    subject,
+    emailBody,
+  });
+  // save the email details to DB (optional)
+  return { email, subject, emailBody, status: "scheduled", time };
+};

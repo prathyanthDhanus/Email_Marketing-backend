@@ -1,11 +1,11 @@
 import "dotenv/config";
 import app from "./app.mjs";
 import mongoose from "mongoose";
+
 const port = process.env.PORT || 5000;
 const url = process.env.MONGODB_URL;
 
 //mongodb conncetion setup
-
 mongoose
   .connect(url)
   .then(() => console.log("MongoDB Atlas connected"))
