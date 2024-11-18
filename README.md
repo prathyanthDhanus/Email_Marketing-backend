@@ -25,7 +25,7 @@
 - **Agenda**:  Job scheduling for emails.
 - **Bcrypt**:  Secure password hashing.
 - **JWT**: Token-based authentication.
-- **Dotenv: **: Manage environment variables.
+- **Dotenv**: Manage environment variables.
 
 
 ## Quick Start
