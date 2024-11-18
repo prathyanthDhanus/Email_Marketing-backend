@@ -40,9 +40,10 @@ To get started with Email Marketing App Backend on your local machine:
    npm start
 
 ## Environment Variables
- **PORT** - Port number
- **MONGODB_URL** - Momgodb url
- **USERSECRET_KEY** - User secrete key (jwt)
- **APP_EMAIL** - Your email address (Nodemailer)
- **APP_PASSWORD** - Your app password (Nodemailer)
+
+-  **PORT** - Port number
+-  **MONGODB_URL** - Momgodb url
+- **USERSECRET_KEY** - User secrete key (jwt)
+-  **APP_EMAIL** - Your email address (Nodemailer)
+-  **APP_PASSWORD** - Your app password (Nodemailer)
 
