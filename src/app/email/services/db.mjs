@@ -1,7 +1,7 @@
 import AppError from "../../../utils/appError.mjs";
 import { sendEmail } from "../../../utils/nodeMailer.mjs";
 import Email from "../model/emailSchema.mjs";
-import agenda from "../../agenda/ajendaConfig.mjs";
+import agenda from "../../../utils/agenda.config.mjs";
 
 //===================== create email ===================
 
@@ -116,6 +116,6 @@ export const sendEmailDb = async (
     subject,
     emailBody,
   });
-  // save the email details to DB (optional)
+  // save the email details to DB 
   return { email, subject, emailBody, status: "scheduled", time };
 };

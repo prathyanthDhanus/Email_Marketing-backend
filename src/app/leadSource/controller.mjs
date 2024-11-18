@@ -70,7 +70,6 @@ export const updateLeadSource = async (req, res) => {
 export const deleteLeadSource = async (req,res)=>{
     //extract user id from the route params
     const {leadSourceId} = req.params;
-  console.log(leadSourceId)
     const deletedLeadSource = await deleteLeadSourceDb(leadSourceId);
     return res.status(200).json({
         status: "success",
